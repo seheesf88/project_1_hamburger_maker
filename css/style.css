@@ -1,0 +1,204 @@
+* {
+    font-family: monospace;
+    color: rgb(68,31,14)
+}
+body {
+  background-image: url("././Background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#top {
+  display: flex;
+}
+
+#messageBox {
+  height: 65px;
+  width: 700px;
+  border-radius: 40px;
+  background-color: rgb(255,206,0);
+  margin: 0 60px 0 60px;
+  padding: 45px;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0px;
+  color: 441F0E
+}
+button {
+  width: 120px;
+  height: 40px;
+}
+
+#startBtn {
+  margin: auto 300px auto;
+  border: 1px solid;
+  border-radius: 30px;
+}
+
+#request {
+  font-size: 25px;
+}
+
+#profile {
+  height: 65px;
+  width: 400px;
+  padding: 45px;
+  border-radius: 40px;
+  background-color: rgb(255,206,0);
+  margin-right: 60px;
+  text-align: center;
+}
+h3 {
+  font-size: 30px;
+  margin: -20px;
+}
+
+#timer{
+  padding: 10px 60px;
+  font-size: 70px;
+  float:left;
+  margin-top: 15px;
+}
+
+
+.info {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  font-size: 25px;
+  text-align: left;
+  margin-top: 15px;
+}
+
+#level {
+  padding: 10px 0px;
+}
+
+#middle {
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#cook {
+  height: 350px;
+  width: 250px;
+  margin-top: 35px;
+  margin-left: 0px;
+  margin-right: 200px;
+}
+
+#cook2 {
+  height: 350px;
+  width: 250px;
+  margin-top: 35px;
+  margin-left: 0px;
+  margin-right: 200px;
+}
+
+.order-wrapper {
+  position: relative;
+}
+
+.on-plate {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+  margin-left: -20px;
+}
+
+#plate {
+  height: 400px;
+  width: 700px;
+  margin-top: 0px;
+  padding-right: 0px;
+}
+
+#kitchen {
+  height: 150px;
+  width: 1230px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 60px;
+}
+
+#foods {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-image: url("././cookstation.png");
+  background-size: 1200px 600px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+}
+
+#cookStation{
+  position: relative;
+  bottom: -100px;
+  width: 1000px;
+  padding:px;
+}
+
+.bunB {
+  margin-left: -50px;
+}
+.bunU {
+  margin-top: -130px;
+  margin-left: -50px
+}
+
+.lett {
+  margin-top: -13px;
+  margin-left: -50px
+}
+.patt {
+  margin-top: -35px;
+  margin-left: -50px
+}
+
+.toma {
+  margin-top: -50px;
+  margin-left: -50px
+}
+.chee {
+  margin-top: -60px;
+  margin-left: -50px
+}
+
+.mayo {
+  margin-top: -80px;
+  margin-left: -50px
+}
+
+#newMess {
+  display: block;
+  font-size: 30px;
+  text-align: center;
+}
+
+#againBtn {
+  margin: 15px 290px;
+  border: 1px solid;
+  border-radius: 30px;
+}
+
+#levelUpMess {
+  display: block;
+  font-size: 30px;
+  text-align: center;
+}
+
+#next {
+  margin: 15px 290px;
+  border: 1px solid;
+  border-radius: 30px;
+}
