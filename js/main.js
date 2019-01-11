@@ -1,36 +1,49 @@
-console.log('hi')
+console.log('hi');
+
+confirmDefault = ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'];
 
 class HamburgerKing {
-  constructor(name, score, timer, customers, level, orders, requests, confirm, orderArray){
+  constructor(name, score, timer, customers, level, orders, confirm) {
     this.name = name;
     this.score = score;
     this.timer = timer;
     this.customers = customers;
     this.level = level;
     this.orders = orders;
-    this.requests = requests;
-    this.confirm = confirm;
-    this.orderArray = orderArray;
+    this.requests = [null, null, null, null, null, null];
+    this.confirm = [...confirm];
   }
 
 
-  getInfo(){
-    const name = prompt('enter your name');
-    $('.info').show();
-    $('h3').eq(0).text(name);
-    $('#profile h3').show();
-    hamburger.start();
-  }
+  // getInfo(){
+  //   const name = prompt('enter your name');
+  //   $('.info').show();
+  //   $('h3').eq(0).text(name);
+  //   $('#profile h3').show();
+  //   hamburger.start();
+  // }
 
   start(){
     //console.log('START THIS VALUE = ', this);//note: 'this' in this func !== class HamburgerKing
+    console.log(this)
+    let missionTimer;
+    if (this.level === 1) {
+      const name = prompt('enter your name');
+      $('.info').show();
+      $('h3').eq(0).text(name);
+      $('#profile h3').show();
+      this.play();
+      // hamburger.start();
+    }
+
+    clearInterval(missionTimer);
 
     //1. h1 tag and start button should be gone;
     $('h1').hide();
     $('#startBtn').hide();
 
     //2. timer should start at the profile messageBox
-    const missionTimer = setInterval(function() {
+    missionTimer = setInterval(function() {
       //console.log('TIMER THIS VALUE = ', this);//note: check ()=>{} and function(){}
       if(hamburger.timer <= 0){
         clearInterval(missionTimer)
@@ -38,9 +51,10 @@ class HamburgerKing {
         $('#cook').hide();
         $('#middle').append(`<img id="cook2" src="./css/burgermanv2.png">`);
         hamburger.reset()
-      }else if(hamburger.score === hamburger.orders){
+      }
+      else if(hamburger.score === hamburger.orders){
         clearInterval(missionTimer);
-        hamburger.levelTwo();
+        // hamburger.levelTwo();
       }else{
         hamburger.timer--;
         $('#timer').show();
@@ -57,7 +71,7 @@ class HamburgerKing {
     // hamburger.confirm = ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'];
     hamburger.getRequest();
     //5. make icons to be clickable
-    hamburger.play();
+    // this.play();
   }
 
   getRequest(){
@@ -90,8 +104,12 @@ class HamburgerKing {
   play(){
 
     $bun.on('click',() => {
+
       if(this.requests[0] === 'bun'){
         this.confirm[0] = 'bun';
+        // console.log(this.confirm[0]);
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate bunB" src="./css/BottomBun.png">')
         $('.order-wrapper').append('<img class="on-plate bunU" src="./css/Bun.png">')
         $('.bunB').velocity("callout.bounce");
@@ -101,10 +119,12 @@ class HamburgerKing {
         $('#bun').velocity("callout.shake")
       }
     });
-
     $lettuce.on('click',()=>{
+      // console.log(this.confirm[1]);
       if(this.requests[1] === 'lettuce'){
         this.confirm[1] = 'lettuce';
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate lett" src="./css/Lettus.png">')
         $('.lett').velocity("callout.bounce");
       }else{
@@ -113,8 +133,12 @@ class HamburgerKing {
       }
     });
     $patty.on('click',()=>{
+      // console.log(this.confirm[2]);
+
       if(this.requests[2] === 'patty'){
-        this.confirm[2] = 'patty';
+        this.confirm[2] = 'patty'
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate patt" src="./css/Patty.png">')
         $('.patt').velocity("callout.bounce")
       }else{
@@ -123,8 +147,12 @@ class HamburgerKing {
       }
     });
     $tomato.on('click',()=>{
+      // console.log(this.confirm[3]);
+
       if(this.requests[3] === 'tomato'){
         this.confirm[3] = 'tomato';
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate toma" src="./css/Tomato.png">')
         $('.toma').velocity("callout.bounce")
       }else{
@@ -134,8 +162,12 @@ class HamburgerKing {
     });
 
     $cheese.on('click',()=>{
+      // console.log(this.confirm[4]);
+
       if(this.requests[4] === 'cheese'){
         this.confirm[4] = 'cheese';
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate chee" src="./css/Cheese.png">')
         $('.chee').velocity("callout.bounce")
       }else{
@@ -144,8 +176,12 @@ class HamburgerKing {
       }
     });
     $mayo.on('click',()=>{
+      // console.log(this.confirm[5]);
+
       if(this.requests[5] === 'mayo'){
         this.confirm[5] =  'mayo';
+        console.log('The Order = ', this.requests);
+        console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate mayo" src="./css/Mayo.png">')
         $('.mayo').velocity("callout.bounce")
       }else{
@@ -155,37 +191,33 @@ class HamburgerKing {
     });
 
     $done.on('click', () => {
-      //let orderArray = [];
+      let orderArray = [];
+
       for(let i = 0; i < this.requests.length; i++){
         if(this.requests[i] !== this.confirm[i]){
-          hamburger.orderArray.push(false);
+          orderArray.push(false);
         } else {
-          hamburger.orderArray.push(true);
+          orderArray.push(true);
         }
-        //hamburger.confirm = ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']
       }
-      console.log(hamburger.requests)
-      console.log(hamburger.confirm)
-      console.log(hamburger.orderArray)
 
-      if (hamburger.orderArray.includes(false)) {
-        hamburger.orderArray =[];
-        hamburger.confirm = ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']
+      if (orderArray.includes(false)) {
         return alert('You lost...!');
-      }else{
+      } else  {
         this.score += 1;
         this.customers += 1;
-        hamburger.orderArray =[];
-        hamburger.confirm = ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']
         $('#left').text(`Burger : ${this.score}`);
-        this.getRequest()
+        //alert('Order is correct...!')
+        // this.getRequest()
+        // document.querySelector('.bunB').remove()
         $('.order-wrapper').empty().append(`<img id="plate" src="./css/tray.png">`)
-      };
+      // }
 
-      if(this.score === this.orders){
+      // if(this.score === this.orders){
         this.level += 1;
         alert('Congrats! you are going to move level [ ' +  this.level + ' ] now!')
         $('#level').text(`Level : ${hamburger.level}`);
+        this.levelTwo();
       };
     });
   };
@@ -198,10 +230,12 @@ class HamburgerKing {
     $('#messageBox').append(`<div id="newMess">Try again?</div>`);
     $('#messageBox').append(`<button id="againBtn">Again</button>`);
     $('#againBtn').on('click', () =>{
+      // $('#messageBox').empty();fail -> it shouldn't be empty..
+      // $('#profile').empty();fail -> it shouldn't be empty..
       $('.on-plate').remove();
       $('#newMess').remove();
       $('#againBtn').remove();
-      hamburger = new HamburgerKing(name, 0, 20, 1, 1, 5, [null, null, null, null, null, null], ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
+      hamburger = new HamburgerKing(name, 0, 3, 1, 1, 5, ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']);
       $('#cook').show();
       $('#cook2').remove();
       this.getInfo();
@@ -217,29 +251,15 @@ class HamburgerKing {
       $('.on-plate').remove();
       $('#levelUpMess').remove();
       $('#next').remove();
-      hamburger = new HamburgerKing(name, 0, 30, 1, 2, 6, [null, null, null, null, null, null], ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
+      // hamburger = new HamburgerKing(name, 0, 30, 1, 2, 6, confirmDefault);
+      this.start();
+      // this.level++;
+      this.orders = 6;
+      this.confirm = [...confirmDefault];
+      this.timer = 30;
       this.start();
     });
   }
-
-  // nextLevel(){
-  //   $('#request').hide();
-  //   $('#timer').hide();
-  //   $('#messageBox').append(`<div id="levelUpMess">congrats!</div>`);
-  //   $('#messageBox').append(`<button id="next">next</button>`);
-  //   $('#next').on('click', () =>{
-  //     $('.on-plate').remove();
-  //     $('#levelUpMess').remove();
-  //     $('#next').remove();
-  //
-  //     let prevTimer = hamburger.timer;
-  //     let prevLevel = hamburger.level;
-  //     let preOrders = hamburger.orders;
-  //
-  //     hamburger = new HamburgerKing(name, 0, prevTimer-10, 1, prevLevel+1, preOrders+2);
-  //     this.start();
-  //   });
-  // }
 
 
 }//class closer
@@ -249,7 +269,7 @@ class HamburgerKing {
 //score => how many player made so far..
 //orders => how many player should make each level
 //customers => start from 1
-let hamburger = new HamburgerKing(name, 0, 30, 1, 1, 2,[null, null, null, null, null, null],['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
+let hamburger = new HamburgerKing(name, 0, 20, 1, 1, 2, confirmDefault);
 
 //variable
 const $startBtn = $('#startBtn');
@@ -264,4 +284,4 @@ const $againBtn = $('#againBtn');
 
 
 //event listner
-$startBtn.on('click', hamburger.getInfo);
+$startBtn.on('click', () => hamburger.start());
