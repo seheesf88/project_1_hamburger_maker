@@ -1,15 +1,16 @@
 console.log('hi')
 
 class HamburgerKing {
-  constructor(name, score, timer, customers, level, orders, confirm){
+  constructor(name, score, timer, customers, level, orders, requests, confirm, orderArray){
     this.name = name;
     this.score = score;
     this.timer = timer;
     this.customers = customers;
     this.level = level;
     this.orders = orders;
-    this.requests = [null, null, null, null, null, null];
+    this.requests = requests;
     this.confirm = confirm;
+    this.orderArray = orderArray;
   }
 
 
@@ -89,12 +90,11 @@ class HamburgerKing {
   play(){
 
     $bun.on('click',() => {
-
       if(this.requests[0] === 'bun'){
         this.confirm[0] = 'bun';
         // console.log(this.confirm[0]);
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        //console.log('The Order = ', this.requests);
+        //console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate bunB" src="./css/BottomBun.png">')
         $('.order-wrapper').append('<img class="on-plate bunU" src="./css/Bun.png">')
         $('.bunB').velocity("callout.bounce");
@@ -104,12 +104,13 @@ class HamburgerKing {
         $('#bun').velocity("callout.shake")
       }
     });
+
     $lettuce.on('click',()=>{
       // console.log(this.confirm[1]);
       if(this.requests[1] === 'lettuce'){
         this.confirm[1] = 'lettuce';
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        //console.log('The Order = ', this.requests);
+        //console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate lett" src="./css/Lettus.png">')
         $('.lett').velocity("callout.bounce");
       }else{
@@ -122,8 +123,8 @@ class HamburgerKing {
 
       if(this.requests[2] === 'patty'){
         this.confirm[2] = 'patty'
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        // console.log('The Order = ', this.requests);
+        // console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate patt" src="./css/Patty.png">')
         $('.patt').velocity("callout.bounce")
       }else{
@@ -136,8 +137,8 @@ class HamburgerKing {
 
       if(this.requests[3] === 'tomato'){
         this.confirm[3] = 'tomato';
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        // console.log('The Order = ', this.requests);
+        // console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate toma" src="./css/Tomato.png">')
         $('.toma').velocity("callout.bounce")
       }else{
@@ -151,8 +152,8 @@ class HamburgerKing {
 
       if(this.requests[4] === 'cheese'){
         this.confirm[4] = 'cheese';
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        // console.log('The Order = ', this.requests);
+        // console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate chee" src="./css/Cheese.png">')
         $('.chee').velocity("callout.bounce")
       }else{
@@ -165,8 +166,8 @@ class HamburgerKing {
 
       if(this.requests[5] === 'mayo'){
         this.confirm[5] =  'mayo';
-        console.log('The Order = ', this.requests);
-        console.log('The Player Burger = ', this.confirm);
+        // console.log('The Order = ', this.requests);
+        // console.log('The Player Burger = ', this.confirm);
         $('.order-wrapper').append('<img class="on-plate mayo" src="./css/Mayo.png">')
         $('.mayo').velocity("callout.bounce")
       }else{
@@ -176,17 +177,17 @@ class HamburgerKing {
     });
 
     $done.on('click', () => {
-      let orderArray = [];
-
+      //let orderArray = [];
       for(let i = 0; i < this.requests.length; i++){
         if(this.requests[i] !== this.confirm[i]){
-          orderArray.push(false);
+          hamburger.orderArray.push(false);
         } else {
-          orderArray.push(true);
+          hamburger.orderArray.push(true);
         }
       }
+      console.log(hamburger.orderArray)
 
-      if (orderArray.includes(false)) {
+      if (hamburger.orderArray.includes(false)) {
         return alert('You lost...!');
       }else{
         this.score += 1;
@@ -207,10 +208,12 @@ class HamburgerKing {
   };
 
   reset(){
+    //console.log(hamburger.orderArray)
     $('#request').hide();
     $('#timer').hide();
     $('#profile h3').hide();
     $('.info').hide();
+    //hamburger.orderArray=[];<- try to clear.. but it doesn't work
     $('#messageBox').append(`<div id="newMess">Try again?</div>`);
     $('#messageBox').append(`<button id="againBtn">Again</button>`);
     $('#againBtn').on('click', () =>{
@@ -219,7 +222,7 @@ class HamburgerKing {
       $('.on-plate').remove();
       $('#newMess').remove();
       $('#againBtn').remove();
-      hamburger = new HamburgerKing(name, 0, 20, 1, 1, 5, ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']);
+      hamburger = new HamburgerKing(name, 0, 20, 1, 1, 5, [null, null, null, null, null, null], ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
       $('#cook').show();
       $('#cook2').remove();
       this.getInfo();
@@ -227,15 +230,17 @@ class HamburgerKing {
   }
 
   levelTwo(){
+    //console.log(hamburger.orderArray)
     $('#request').hide();
     $('#timer').hide();
+    //hamburger.orderArray=[]; <- try to clear.. but it doesn't work
     $('#messageBox').append(`<div id="levelUpMess">congrats!</div>`);
     $('#messageBox').append(`<button id="next">next</button>`);
     $('#next').on('click', () =>{
       $('.on-plate').remove();
       $('#levelUpMess').remove();
       $('#next').remove();
-      hamburger = new HamburgerKing(name, 0, 30, 1, 2, 6, ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']);
+      hamburger = new HamburgerKing(name, 0, 30, 1, 2, 6, [null, null, null, null, null, null], ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
       this.start();
     });
   }
@@ -267,7 +272,7 @@ class HamburgerKing {
 //score => how many player made so far..
 //orders => how many player should make each level
 //customers => start from 1
-let hamburger = new HamburgerKing(name, 0, 30, 1, 1, 1, ['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo']);
+let hamburger = new HamburgerKing(name, 0, 30, 1, 1, 1,[null, null, null, null, null, null],['no bun', 'no lettuce', 'no patty', 'no tomato', 'no cheese', 'no mayo'],[]);
 
 //variable
 const $startBtn = $('#startBtn');
