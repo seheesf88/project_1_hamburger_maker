@@ -1,6 +1,8 @@
 # project-1
 Project 1 Game
 
+0. https://pages.git.generalassemb.ly/seheesf88/project-1/
+
 1. Game info
 Name : Hamburger maker
 How to play :
